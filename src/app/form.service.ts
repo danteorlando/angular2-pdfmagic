@@ -15,15 +15,16 @@ export class FormService {
   constructor(private http: Http) { }
 
   getForms(): Promise<Form[]> {
-    return this.http.get(this.formsUrl)
+    const url = 'http://10.141.251.101:62449/api/pdfmagic/getforms'
+	return this.http.get(url)
                .toPromise()
-               .then(response => response.json().data as Form[])
+               .then(response => response.json() as Form[])
+			   //.then(response => { console.log('From Promise:', response.json() as Form[] ); })
                .catch(this.handleError);
   }
 
-
   getForm(id: number): Promise<Form> {
-    const url = `${this.formsUrl}/${id}`;
+    const url = 'http://10.141.251.101:62449/api/pdfmagic/getforms/${id}';
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Form)

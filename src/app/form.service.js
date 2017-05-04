@@ -19,13 +19,14 @@ var FormService = (function () {
         this.formsUrl = 'api/forms'; // URL to web api
     }
     FormService.prototype.getForms = function () {
-        return this.http.get(this.formsUrl)
+        var url = 'http://10.141.251.101:62449/api/pdfmagic/getforms';
+        return this.http.get(url)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     FormService.prototype.getForm = function (id) {
-        var url = this.formsUrl + "/" + id;
+        var url = 'http://10.141.251.101:62449/api/pdfmagic/getforms/${id}';
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json().data; })

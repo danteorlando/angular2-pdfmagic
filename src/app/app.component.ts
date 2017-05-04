@@ -12,14 +12,14 @@ import { FormService }         from './form.service';
       <li *ngFor="let form of forms"
         [class.selected]="form === selectedForm"
         (click)="onSelect(form)">
-        <span class="badge">{{form.id}}</span> {{form.name}}
+        <span class="badge">{{form.Id}}</span> {{form.Name}}
       </li>
     </ul>
     <div *ngIf="selectedForm">
-      <h2>{{selectedForm.name}} details</h2>
-      <div><label>id: </label>{{selectedForm.id}}</div>
-      <div *ngFor="let field of selectedForm.fields">
-        <label>{{field.fieldName}}: </label>
+      <h2>{{selectedForm.Name}} details</h2>
+      <div><label>id: </label>{{selectedForm.Id}}</div>
+      <div *ngFor="let field of selectedForm.Fields">
+        <label>{{field.FieldName}}: </label>
         <input placeholder=""/>
       </div>
     </div>
