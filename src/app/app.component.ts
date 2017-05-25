@@ -16,12 +16,13 @@ import { FormService }         from './form.service';
       </li>
     </ul>
     <div *ngIf="selectedForm">
-      <h2>{{selectedForm.Name}} details</h2>
-      <div><label>id: </label>{{selectedForm.Id}}</div>
-      <div *ngFor="let field of selectedForm.Fields">
-        <label>{{field.FieldName}}: </label>
-        <input placeholder=""/>
-      </div>
+		<h2>{{selectedForm.Name}} details</h2>
+		<div><label>id: </label>{{selectedForm.Id}}</div>
+		<div *ngFor="let field of selectedForm.Fields">
+			<label>{{field.FieldName}}: </label>
+			<input placeholder=""/>
+		</div>
+		<button (click)="save()">Save</button>
     </div>
   `,
   styles: [`
