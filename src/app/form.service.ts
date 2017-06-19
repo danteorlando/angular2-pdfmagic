@@ -15,7 +15,7 @@ export class FormService {
   constructor(private http: Http) { }
 
   getForms(): Promise<Form[]> {
-    const url = 'http://10.141.251.101:62449/api/pdfmagic/getforms'
+    const url = 'http://localhost:62449/api/pdfmagic/getforms'
 	return this.http.get(url)
                .toPromise()
                .then(response => response.json() as Form[])
