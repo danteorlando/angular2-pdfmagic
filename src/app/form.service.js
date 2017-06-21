@@ -19,14 +19,14 @@ var FormService = (function () {
         this.formsUrl = 'api/forms'; // URL to web api
     }
     FormService.prototype.getForms = function () {
-        var url = 'http://localhost:62449/api/pdfmagic/getforms';
+        var url = 'http://10.141.251.101/PdfMagicService/api/pdfmagic/getforms';
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     FormService.prototype.getForm = function (id) {
-        var url = 'http://localhost:62449/api/pdfmagic/getforms/${id}';
+        var url = 'http://10.141.251.101/PdfMagicService/api/pdfmagic/getforms/${id}';
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json().data; })
@@ -34,9 +34,12 @@ var FormService = (function () {
     };
     FormService.prototype.fill = function (form) {
         return this.http
-            .post('http://localhost:62449/api/pdfmagic/fill', JSON.stringify(form), { headers: this.headers })
+            .post('http://10.141.251.101/PdfMagicService/api/pdfmagic/fill', JSON.stringify(form), {
+            headers: this.headers,
+            responseType: http_1.ResponseContentType.Blob
+        })
             .toPromise()
-            .then(function (res) { return res.json().data; })
+            .then(function (res) { return res; })
             .catch(this.handleError);
     };
     FormService.prototype.handleError = function (error) {

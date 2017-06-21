@@ -28,7 +28,8 @@ var AppComponent = (function () {
     AppComponent.prototype.fill = function () {
         var _this = this;
         this.formService.fill(this.selectedForm)
-            .then(function (data) { return _this.downloadFile(data); });
+            .then(function (res) { return _this.downloadFile(res.blob()); });
+        //.then(data => console.log(data));
         //.then(() => this.goBack());
     };
     AppComponent.prototype.downloadFile = function (data) {
@@ -36,9 +37,11 @@ var AppComponent = (function () {
         var url = window.URL.createObjectURL(blob);
         window.open(url);
     };
-    AppComponent.prototype.goBack = function () {
-        this.location.back();
-    };
+    /*
+    goBack(): void {
+      this.location.back();
+    }
+    */
     AppComponent.prototype.onSelect = function (form) {
         this.selectedForm = form;
     };

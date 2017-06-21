@@ -95,8 +95,9 @@ export class AppComponent implements OnInit {
 
   fill(): void {
     this.formService.fill(this.selectedForm)
-		.then(data => this.downloadFile(data));
-      //.then(() => this.goBack());
+		.then(res => this.downloadFile(res.blob());
+		//.then(data => console.log(data));
+		//.then(() => this.goBack());
   }
 
   downloadFile(data: Response) {
@@ -104,10 +105,12 @@ export class AppComponent implements OnInit {
 	var url= window.URL.createObjectURL(blob);
 	window.open(url);
   }
+  
+  /*
   goBack(): void {
     this.location.back();
   }
-  
+  */
   onSelect(form: Form): void {
     this.selectedForm = form;
   }

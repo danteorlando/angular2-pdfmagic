@@ -1,5 +1,5 @@
 import { Injectable }    from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, ResponseContentType } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -15,7 +15,7 @@ export class FormService {
   constructor(private http: Http) { }
 
   getForms(): Promise<Form[]> {
-    const url = 'http://localhost:62449/api/pdfmagic/getforms'
+    const url = 'http://10.141.251.101/PdfMagicService/api/pdfmagic/getforms'
 	return this.http.get(url)
                .toPromise()
                .then(response => response.json() as Form[])
@@ -24,19 +24,23 @@ export class FormService {
   }
 
   getForm(id: number): Promise<Form> {
-    const url = 'http://localhost:62449/api/pdfmagic/getforms/${id}';
+    const url = 'http://10.141.251.101/PdfMagicService/api/pdfmagic/getforms/${id}';
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Form)
       .catch(this.handleError);
   }
 
-  fill(form: Form): Promise<Form> {
+  fill(form: Form): Promise<Blob> {
     return this.http
-      .post('http://localhost:62449/api/pdfmagic/fill', JSON.stringify(form), {headers: this.headers})
-      .toPromise()
-      .then(res => res.json().data)
-      .catch(this.handleError);
+		.post('http://10.141.251.101/PdfMagicService/api/pdfmagic/fill', JSON.stringify(form), {
+			headers: this.headers,
+			responseType: ResponseContentType.Blob
+		})
+		.toPromise()
+		.then(res => res)
+		//.then(res => console.log(res))
+		.catch(this.handleError);
   }
   
   private handleError(error: any): Promise<any> {
