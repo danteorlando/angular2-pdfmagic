@@ -19,17 +19,24 @@ var FormService = (function () {
         this.formsUrl = 'api/forms'; // URL to web api
     }
     FormService.prototype.getForms = function () {
-        var url = 'http://10.141.251.101:62449/api/pdfmagic/getforms';
+        var url = 'http://localhost:62449/api/pdfmagic/getforms';
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     FormService.prototype.getForm = function (id) {
-        var url = 'http://10.141.251.101:62449/api/pdfmagic/getforms/${id}';
+        var url = 'http://localhost:62449/api/pdfmagic/getforms/${id}';
         return this.http.get(url)
             .toPromise()
             .then(function (response) { return response.json().data; })
+            .catch(this.handleError);
+    };
+    FormService.prototype.fill = function (form) {
+        return this.http
+            .post('http://localhost:62449/api/pdfmagic/fill', JSON.stringify(form), { headers: this.headers })
+            .toPromise()
+            .then(function (res) { return res.json().data; })
             .catch(this.handleError);
     };
     FormService.prototype.handleError = function (error) {

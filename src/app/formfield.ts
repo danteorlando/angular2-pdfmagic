@@ -4,4 +4,5 @@ export class FormField {
   fieldFlags: number;
   fieldJustification: string;
   fieldMaxLength: number;
+  fieldValue: string;
 }

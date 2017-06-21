@@ -24,13 +24,21 @@ export class FormService {
   }
 
   getForm(id: number): Promise<Form> {
-    const url = 'http://10.141.251.101:62449/api/pdfmagic/getforms/${id}';
+    const url = 'http://localhost:62449/api/pdfmagic/getforms/${id}';
     return this.http.get(url)
       .toPromise()
       .then(response => response.json().data as Form)
       .catch(this.handleError);
   }
 
+  fill(form: Form): Promise<Form> {
+    return this.http
+      .post('http://localhost:62449/api/pdfmagic/fill', JSON.stringify(form), {headers: this.headers})
+      .toPromise()
+      .then(res => res.json().data)
+      .catch(this.handleError);
+  }
+  
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 
 import { Form }                from './form';
 import { FormService }         from './form.service';
@@ -17,12 +17,12 @@ import { FormService }         from './form.service';
     </ul>
     <div *ngIf="selectedForm">
 		<h2>{{selectedForm.Name}} details</h2>
+		<button (click)="fill()">Save</button>
 		<div><label>id: </label>{{selectedForm.Id}}</div>
 		<div *ngFor="let field of selectedForm.Fields">
 			<label>{{field.FieldName}}: </label>
-			<input placeholder=""/>
+			<input [(ngModel)]="field.FieldValue" placeholder="name" />
 		</div>
-		<button (click)="save()">Save</button>
     </div>
   `,
   styles: [`
@@ -91,6 +91,21 @@ export class AppComponent implements OnInit {
   
   ngOnInit(): void {
     this.getForms();
+  }
+
+  fill(): void {
+    this.formService.fill(this.selectedForm)
+		.then(data => this.downloadFile(data));
+      //.then(() => this.goBack());
+  }
+
+  downloadFile(data: Response) {
+	var blob = new Blob([data], { type: 'application/pdf' });
+	var url= window.URL.createObjectURL(blob);
+	window.open(url);
+  }
+  goBack(): void {
+    this.location.back();
   }
   
   onSelect(form: Form): void {
