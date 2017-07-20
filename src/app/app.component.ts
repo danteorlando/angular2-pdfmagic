@@ -95,12 +95,12 @@ export class AppComponent implements OnInit {
 
   fill(): void {
     this.formService.fill(this.selectedForm)
-		.then(res => this.downloadFile(res.blob());
+		.then(res => this.downloadFile(res));
 		//.then(data => console.log(data));
 		//.then(() => this.goBack());
   }
 
-  downloadFile(data: Response) {
+  downloadFile(data: Blob) {
 	var blob = new Blob([data], { type: 'application/pdf' });
 	var url= window.URL.createObjectURL(blob);
 	window.open(url);
